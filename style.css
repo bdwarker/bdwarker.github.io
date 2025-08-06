@@ -1,9 +1,8 @@
 /* professional dark-mode-only pastel-crimson theme */
-
 :root {
   --bg: #0f0f1a;
   --fg: #f4f4f5;
-  --primary: #f43f5e; /* crimson/pink */
+  --primary: #f43f5e;
   --secondary: #94a3b8;
   --border: #334155;
   --card-bg: rgba(15, 15, 30, 0.6);
@@ -29,6 +28,7 @@ body {
   line-height: 1.6;
   padding: 4rem 2rem;
   transition: background-color 0.3s ease, color 0.3s ease;
+  backdrop-filter: blur(2px);
 }
 
 header {
@@ -38,12 +38,13 @@ header {
   width: 100%;
   background: var(--card-bg);
   border-bottom: 1px solid var(--border);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 1000;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 header h1 {
@@ -56,11 +57,12 @@ nav a {
   margin-left: 1.5rem;
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, transform 0.2s ease;
 }
 
 nav a:hover {
   color: var(--primary);
+  transform: scale(1.1);
 }
 
 main {
@@ -74,13 +76,14 @@ section {
   border-radius: 0.75rem;
   padding: 2rem;
   margin-bottom: 2rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
 }
 
 section:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
 }
 
 h1, h2, h3, h4, h5 {
@@ -156,10 +159,6 @@ footer {
   font-size: 0.85rem;
 }
 
-.text-center {
-  text-align: center;
-}
-
 button {
   background-color: var(--button-bg);
   color: var(--button-text);
@@ -169,11 +168,151 @@ button {
   font-size: 0.9rem;
   font-family: var(--font);
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  margin-bottom: 1rem;
+  transition: all 0.3s ease;
 }
 
 button:hover {
   background-color: var(--button-hover);
   color: #fff;
+  transform: scale(1.05);
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.hamburger {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    padding: 6rem 2rem;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 9999;
+    border-top: 1px solid var(--border);
+    background: var(--bg);
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .hamburger {
+    display: block;
+    z-index: 10000;
+  }
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.project-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+.project-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-bottom: 1px solid var(--border);
+}
+
+.project-card .card-body {
+  padding: 1rem;
+}
+
+.project-card h3 {
+  margin-bottom: 0.5rem;
+  color: var(--primary);
+}
+
+.project-card p {
+  color: var(--secondary);
+  font-size: 0.9rem;
+}
+
+/* Modal Styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(15, 15, 30, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+
+.modal.hidden {
+  display: none;
+}
+
+
+.modal-content {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 2rem;
+  max-width: 500px;
+  width: 100%;
+  color: var(--fg);
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+#version-list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 1rem;
+}
+
+#version-list li {
+  margin-bottom: 0.5rem;
+  color: var(--fg);
+}
+.modal-content {
+  max-height: 90vh;           /* 🔒 Keep modal within screen */
+  overflow-y: auto;           /* 🧽 Internal scroll only if needed */
+  padding: 2rem;
+}
+body::-webkit-scrollbar {
+  display: none;
 }
